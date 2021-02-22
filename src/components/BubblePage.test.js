@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import BubblePage from "./BubblePage";
 import { fetchBubbles as mockFetchBubbles } from "../helpers/fetchBubbles";
 
@@ -35,8 +35,9 @@ test("Renders BubblePage without errors", () => {
 
 test("Fetches data and renders the bubbles on mounting", async () => {
   // Finish this test
-  render(<BubblePage/>);
   mockFetchBubbles.mockResolvedValueOnce(mockData);
+  render(<BubblePage/>);
+  
   const bubbles = await waitFor(()=>screen.getAllByTestId("circle"))
   expect(bubbles).toHaveLength(1)
 });
