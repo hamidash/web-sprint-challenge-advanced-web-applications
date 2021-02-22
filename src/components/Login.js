@@ -44,7 +44,7 @@ const Login = (props) => {
   const submitHandler = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/api/login", formData)
+      .post("login", formData)
       .then((res) => {
         console.log(res.data);
         localStorage.setItem("token", res.data.payload);
@@ -70,14 +70,14 @@ const Login = (props) => {
         Welcome to the Bubble App!
       </h1> */}
       <form action="" className="login-form" onSubmit={submitHandler}>
-        <label htmlFor="username">Username</label>
+        <label for="username">Username</label>
         <input
           type="text"
           name="username"
           value={formData.username}
           onChange={changeHandler}
         />
-        <label htmlFor="password">Password</label>
+        <label for="password">Password</label>
         <input
           type="password"
           name="password"
