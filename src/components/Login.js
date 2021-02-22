@@ -52,11 +52,11 @@ const Login = (props) => {
           username: "",
           password: "",
         });
-        props.history.push('/bubbles');
+        props.history.push("/bubbles");
       })
       .catch((err) => {
         setIsCredetialsCorrect(false);
-        console.error("BK: Login error ",err.response.data);
+        console.error("BK: Login error ", err.response.data);
         setFormData({
           username: "",
           password: "",
@@ -70,20 +70,25 @@ const Login = (props) => {
         Welcome to the Bubble App!
       </h1> */}
       <form action="" className="login-form" onSubmit={submitHandler}>
-        <label for="username">Username</label>
-        <input
-          type="text"
-          name="username"
-          value={formData.username}
-          onChange={changeHandler}
-        />
-        <label for="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={changeHandler}
-        />
+        <label htmlFor="username">
+          Username
+          <input
+            type="text"
+            name="username"
+            value={formData.username}
+            onChange={changeHandler}
+          />
+        </label>
+        <label htmlFor="password">
+          Password
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={changeHandler}
+          />
+        </label>
+
         <button className="button-row">Login</button>
         {isCredentialsCorrect === false ? (
           <p>Username or Password not valid</p>
