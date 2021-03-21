@@ -1,20 +1,101 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const Login = () => {
+const Login = (props) => {
   // make a post request to retrieve a token from the api
   // when you have handled the token, navigate to the BubblePage route
-
-  useEffect(()=>{
-    // make a post request to retrieve a token from the api
-    // when you have handled the token, navigate to the BubblePage route
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
   });
+
+  const [isCredentialsCorrect, setIsCredetialsCorrect] = useState("");
+
+  useEffect(() => {
+    axios
+      .delete(`http://localhost:5000/api/colors/1`, {
+        headers: {
+          authorization:
+            "ahuBHejkJJiMDhmODZhZi0zaeLTQ4ZfeaseOGZgesai1jZWYgrTA07i73Gebhu98",
+        },
+      })
+      .then((res) => {
+        axios
+          .get(`http://localhost:5000/api/colors`, {
+            headers: {
+              authorization: "",
+            },
+          })
+          .then((res) => {
+            console.log(res);
+          });
+        console.log(res);
+      });
+  });
+
+  const changeHandler = (e) => {
+    const newFomData = {
+      ...formData,
+      [e.target.name]: e.target.value,
+    };
+    setFormData(newFomData);
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    axios
+      .post("login", formData)
+      .then((res) => {
+        console.log(res.data);
+        localStorage.setItem("token", res.data.payload);
+        setFormData({
+          username: "",
+          password: "",
+        });
+        props.history.push("/bubbles");
+      })
+      .catch((err) => {
+        setIsCredetialsCorrect(false);
+        console.error("BK: Login error ", err.response.data);
+        setFormData({
+          username: "",
+          password: "",
+        });
+      });
+  };
+
   return (
     <>
-      <h1>
+      {/* <h1>
         Welcome to the Bubble App!
-        <p>Build a login page here</p>
-      </h1>
+      </h1> */}
+      <form action="" className="login-form" onSubmit={submitHandler}>
+        <label htmlFor="username">
+          Username
+          <input
+            type="text"
+            name="username"
+            value={formData.username}
+            onChange={changeHandler}
+          />
+        </label>
+        <label htmlFor="password">
+          Password
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={changeHandler}
+          />
+        </label>
+
+        <button className="button-row">Login</button>
+        {isCredentialsCorrect === false ? (
+          <p>Username or Password not valid</p>
+        ) : (
+          ""
+        )}
+      </form>
     </>
   );
 };
