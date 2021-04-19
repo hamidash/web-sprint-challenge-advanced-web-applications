@@ -24,11 +24,11 @@ const BubblePage = () => {
   }, []);
 
   return (
-    <>
+    <div className="container">
       <ColorList colors={colorList} updateColors={setColorList} />
       <Bubbles colors={colorList} />
       {errorMessage ? <p> {errorMessage}</p> : ""}
-    </>
+    </div>
   );
 };
 

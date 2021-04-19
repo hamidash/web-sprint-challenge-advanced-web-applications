@@ -1,8 +1,10 @@
-import React from 'react';
+import React from "react";
 
-const EditMenu = ({colorToEdit, saveEdit, setColorToEdit, setEditing}) => {
-    return(<form onSubmit={saveEdit}>
-        <legend>edit color</legend>
+const EditMenu = ({ colorToEdit, saveEdit, setColorToEdit, setEditing }) => {
+  return (
+    <form data-testid="editForm" onSubmit={saveEdit}>
+      <legend>edit color</legend>
+      <div>
         <label htmlFor="colorName">color name:</label>
         <input
           name="colorName"
@@ -12,7 +14,9 @@ const EditMenu = ({colorToEdit, saveEdit, setColorToEdit, setEditing}) => {
           }
           value={colorToEdit.color}
         />
-      
+      </div>
+
+      <div>
         <label htmlFor="hex">hex code:</label>
         <input
           name="hex"
@@ -25,12 +29,14 @@ const EditMenu = ({colorToEdit, saveEdit, setColorToEdit, setEditing}) => {
           }
           value={colorToEdit.code.hex}
         />
-      
-        <div className="button-row">
-          <button type="submit">save</button>
-          <button onClick={() => setEditing(false)}>cancel</button>
-        </div>
-    </form>);
-}
+      </div>
+
+      <div className="button-row">
+        <button type="submit">save</button>
+        <button onClick={() => setEditing(false)}>cancel</button>
+      </div>
+    </form>
+  );
+};
 
 export default EditMenu;

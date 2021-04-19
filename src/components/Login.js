@@ -31,7 +31,7 @@ const Login = (props) => {
           });
         console.log(res);
       });
-  });
+  }, []);
 
   const changeHandler = (e) => {
     const newFomData = {
@@ -44,7 +44,7 @@ const Login = (props) => {
   const submitHandler = (e) => {
     e.preventDefault();
     axios
-      .post("login", formData)
+      .post("http://localhost:5000/api/login", formData)
       .then((res) => {
         console.log(res.data);
         localStorage.setItem("token", res.data.payload);
@@ -65,38 +65,42 @@ const Login = (props) => {
   };
 
   return (
-    <>
-      {/* <h1>
-        Welcome to the Bubble App!
-      </h1> */}
-      <form action="" className="login-form" onSubmit={submitHandler}>
-        <label htmlFor="username">
-          Username
-          <input
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={changeHandler}
-          />
-        </label>
-        <label htmlFor="password">
-          Password
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={changeHandler}
-          />
-        </label>
+    <div>
+      <h1>Welcome to the Bubble App!</h1>
+      <div data-testid="loginForm" className="login-form">
+        <form action="" className="login-form" onSubmit={submitHandler}>
+          <label htmlFor="username">
+            Username
+            <input
+              type="text"
+              name="username"
+              value={formData.username}
+              onChange={changeHandler}
+              data-testid="username"
+            />
+          </label>
+          <label htmlFor="password">
+            Password
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={changeHandler}
+              data-testid="password"
+            />
+          </label>
 
-        <button className="button-row">Login</button>
-        {isCredentialsCorrect === false ? (
-          <p>Username or Password not valid</p>
-        ) : (
-          ""
-        )}
-      </form>
-    </>
+          <button className="button-row">Login</button>
+          {isCredentialsCorrect === false ? (
+            <p data-testid="errorMessage" className="error">
+              Username or Password not valid
+            </p>
+          ) : (
+            ""
+          )}
+        </form>
+      </div>
+    </div>
   );
 };
 

@@ -8,11 +8,21 @@ import "./styles.scss";
 
 
 function App() {
+
+  const clearToken = (e) => {
+    // e.preventDefault();
+    localStorage.removeItem("token");
+    window.location.reload(false);
+  }
+
+  const [isToken, setIsToken] = useState("");
+
   return (
     <Router>
       <div className="App">
+        <button className="button" onClick={clearToken}>Log Out</button>
         <Route exact path="/" component={Login} />
-        <PrivateRoute path="/bubbles" component={BubblePage}/>
+        <PrivateRoute path="/bubbles" component={BubblePage} setIsToken = {setIsToken}/>
       </div>
     </Router>
   );
